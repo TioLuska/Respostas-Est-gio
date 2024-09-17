@@ -1,4 +1,11 @@
-def analisa_faturamento(faturamento_diario):
+import json
+
+def analisa_faturamento(arquivo_json):
+
+  with open(arquivo_json, 'r') as f:
+    dados = json.load(f)
+
+  faturamento_diario = [valor for valor in dados['valores'] if valor > 0]
 
   media_mensal = sum(faturamento_diario) / len(faturamento_diario)
 
@@ -9,8 +16,8 @@ def analisa_faturamento(faturamento_diario):
 
   return menor_valor, maior_valor, dias_acima_media
 
-faturamento = [1000, 1500, 800, 2000, 1200]
-menor, maior, dias_acima = analisa_faturamento(faturamento)
+arquivo = 'faturamento.json'  # Substitua pelo nome do seu arquivo
+menor, maior, dias_acima = analisa_faturamento(arquivo)
 
 print(f"Menor valor de faturamento: R$ {menor}")
 print(f"Maior valor de faturamento: R$ {maior}")
